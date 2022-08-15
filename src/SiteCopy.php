@@ -59,7 +59,7 @@ class SiteCopy extends Plugin
                     $element = $event->sender;
 
                     if (in_array(get_class($element), [Entry::class, Asset::class, 'craft\commerce\elements\Product'])) {
-                        $event->html .= $this->addSitecopyWidgetToElements($event->sender);
+                        $event->html .= $this->addSitecopyWidget($event->sender);
                     }
                 }
             );
@@ -70,7 +70,7 @@ class SiteCopy extends Plugin
                     /** @var $element GlobalSet */
                     $element = $context['globalSet'];
 
-                    return $this->addSitecopyWidgetToGlobals($element);
+                    return $this->addSitecopyWidget($element);
                 }
             );
 
@@ -113,7 +113,7 @@ class SiteCopy extends Plugin
      * @throws \Twig\Error\SyntaxError
      * @throws \yii\base\Exception
      */
-    private function addSitecopyWidget(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element, string $template)
+    private function addSitecopyWidget(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
     {
         $isNew = $element->id === null;
         $sites = $element->getSupportedSites();
@@ -130,7 +130,7 @@ class SiteCopy extends Plugin
         $currentSite = $element->siteId ?? null;
 
         return Craft::$app->view->renderTemplate(
-            $template,
+            'sitecopy/_cp/elementsEdit',
             [
                 'siteId'          => $element->siteId,
                 'supportedSites'  => $sites,
@@ -139,15 +139,5 @@ class SiteCopy extends Plugin
                 'currentSite'     => $currentSite,
             ]
         );
-    }
-
-    private function addSitecopyWidgetToElements($element)
-    {
-        return $this->addSitecopyWidget($element, 'sitecopy/_cp/elementsEdit');
-    }
-
-    private function addSitecopyWidgetToGlobals($element)
-    {
-        return $this->addSitecopyWidget($element, 'sitecopy/_cp/globalsEdit');
     }
 }
