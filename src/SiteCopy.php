@@ -74,6 +74,13 @@ class SiteCopy extends Plugin
                 }
             );
 
+            Craft::$app->view->hook(
+                'cp.commerce.product.edit.details',
+                function (array &$context) {
+                    return $this->addSitecopyWidget($context['product']);
+                }
+            );
+
             Event::on(
                 Elements::class,
                 Elements::EVENT_AFTER_SAVE_ELEMENT,
