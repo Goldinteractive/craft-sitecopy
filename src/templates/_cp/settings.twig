@@ -1,0 +1,146 @@
+{% import '_includes/forms' as forms %}
+
+{% set attributesToCopyOptions = craft.sitecopy.getAttributesToCopyOptions() %}
+
+{{ forms.checkboxGroupField({
+  label: "Fields to copy"|t('sitecopy'),
+  id: 'attributesToCopy',
+  name: 'attributesToCopy',
+  options: attributesToCopyOptions,
+  values: settings.attributesToCopy is not empty ? settings.attributesToCopy : [],
+}) }}
+
+<h2 class="first">{{ 'Entries'|t('sitecopy') }}</h2>
+
+{# combined settings #}
+
+{% set sourceOptions = [{value: '*', label: 'All Sites'|t('sitecopy')}] %}
+
+{% for site in craft.app.sites.getAllSites() %}
+    {% set sourceOptions = sourceOptions|merge([{value: site.id, label: site.name}]) %}
+{% endfor %}
+
+{% set targetOptions = sourceOptions|slice(1) %}
+
+{% set cols = [
+    {
+        type: 'select',
+        heading: 'Criteria'|t('sitecopy'),
+        options: criteriaFieldOptionsEntries,
+    },
+    {
+        type: 'select',
+        options: criteriaOperatorOptions,
+    },
+    {
+        type: 'text',
+        heading: 'Value'|t('sitecopy'),
+    },
+    {
+        type: 'select',
+        heading: 'Source site'|t('sitecopy'),
+        options: sourceOptions,
+    },
+    {
+        type: 'select',
+        heading: 'Target site'|t('sitecopy'),
+        options: targetOptions,
+    }
+] %}
+
+{{ forms.editableTableField({
+    label: 'Automatic copy (optional)'|t('sitecopy'),
+    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('sitecopy'),
+    name: 'combinedSettingsEntries',
+    id: 'combinedSettingsEntries',
+    cols: cols,
+    rows: settings.combinedSettingsEntries,
+    addRowLabel: 'Add a criteria'|t('sitecopy'),
+}) }}
+
+<h2>{{ 'Globals'|t('sitecopy') }}</h2>
+
+{% set cols = [
+    {
+        type: 'select',
+        heading: 'Criteria'|t('sitecopy'),
+        options: criteriaFieldOptionsGlobals,
+    },
+    {
+        type: 'select',
+        options: criteriaOperatorOptions,
+    },
+    {
+        type: 'text',
+        heading: 'Value'|t('sitecopy'),
+    },
+    {
+        type: 'select',
+        heading: 'Source site'|t('sitecopy'),
+        options: sourceOptions,
+    },
+    {
+        type: 'select',
+        heading: 'Target site'|t('sitecopy'),
+        options: targetOptions,
+    }
+] %}
+
+{{ forms.editableTableField({
+    label: 'Automatic copy (optional)'|t('sitecopy'),
+    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('sitecopy'),
+    name: 'combinedSettingsGlobals',
+    id: 'combinedSettingsGlobals',
+    cols: cols,
+    rows: settings.combinedSettingsGlobals,
+    addRowLabel: 'Add a criteria'|t('sitecopy'),
+}) }}
+
+<h2>{{ 'Assets'|t('sitecopy') }}</h2>
+
+{% set cols = [
+    {
+        type: 'select',
+        heading: 'Criteria'|t('sitecopy'),
+        options: criteriaFieldOptionsAssets,
+    },
+    {
+        type: 'select',
+        options: criteriaOperatorOptions,
+    },
+    {
+        type: 'text',
+        heading: 'Value'|t('sitecopy'),
+    },
+    {
+        type: 'select',
+        heading: 'Source site'|t('sitecopy'),
+        options: sourceOptions,
+    },
+    {
+        type: 'select',
+        heading: 'Target site'|t('sitecopy'),
+        options: targetOptions,
+    }
+] %}
+
+{{ forms.editableTableField({
+    label: 'Automatic copy (optional)'|t('sitecopy'),
+    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('sitecopy'),
+    name: 'combinedSettingsAssets',
+    id: 'combinedSettingsAssets',
+    cols: cols,
+    rows: settings.combinedSettingsAssets,
+    addRowLabel: 'Add a criteria'|t('sitecopy'),
+}) }}
+
+<h2>{{ 'Settings'|t('sitecopy') }}</h2>
+
+{{ forms.selectField({
+    label: 'Criteria check method'|t('sitecopy'),
+    instructions: 'Decide if the criteria are mutually exclusive (OR), everything needs to be true (AND) or if it should break after the first matching statement (XOR).'|t('sitecopy'),
+    id: 'combinedSettingsCheckMethod',
+    name: 'combinedSettingsCheckMethod',
+    options: [{value: 'or', label: 'OR',}, {value: 'and', label: 'AND'}, {value: 'xor', label: 'XOR'}, ],
+    value: settings.combinedSettingsCheckMethod is not empty ? settings.combinedSettingsCheckMethod : null,
+}) }}
