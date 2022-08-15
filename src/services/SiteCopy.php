@@ -272,12 +272,9 @@ class SiteCopy extends Component
         }
     }
 
-    /**
-     * @param Entry|craft\commerce\elements\Product|GlobalSet $element
-     */
-    public function getSerializedFieldValues($element)
+    public function getSerializedFieldValues(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
     {
-        $fields = Craft::$app->fields->getFieldsByLayoutId($element->getFieldLayout()->id);
+        $fields = $element->getFieldLayout()->getCustomFields();
         $serializedValues = [];
 
         // fix for https://github.com/spicywebau/craft-neo/issues/391
@@ -297,11 +294,10 @@ class SiteCopy extends Component
     }
 
     /**
-     * @param Entry|craft\commerce\elements\Product|GlobalSet|Asset $element
      * @return array
      * @throws Exception
      */
-    public function handleSiteCopyActiveState($element)
+    public function handleSiteCopyActiveState(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
     {
         if (!is_object($element)) {
             throw new Exception('Given value must be an object!');
@@ -376,11 +372,9 @@ class SiteCopy extends Component
     }
 
     /**
-     * @param Entry|craft\commerce\elements\Product|GlobalSet|Asset $element
-     *
      * @return array
      */
-    public function getCombinedSettings($element)
+    public function getCombinedSettings(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
     {
         $combinedSettings = [];
 
