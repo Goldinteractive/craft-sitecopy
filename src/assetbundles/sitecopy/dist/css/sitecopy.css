@@ -1,0 +1,15 @@
+/* globals */
+
+.content-pane #sitecopy {
+    margin-top: 50px;
+}
+
+/* elements */
+
+.details #sitecopy-options {
+    padding-bottom: 1px;
+}
+
+.details #sitecopy-options .field {
+    margin: 24px 0;
+}
