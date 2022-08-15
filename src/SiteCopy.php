@@ -13,6 +13,7 @@ use Craft;
 use craft\elements\Asset;
 use craft\elements\Entry;
 use craft\elements\GlobalSet;
+use craft\events\DefineHtmlEvent;
 use craft\events\ElementEvent;
 use craft\services\Elements;
 use craft\web\twig\variables\CraftVariable;
@@ -51,43 +52,25 @@ class SiteCopy extends Plugin
                 }
             );
 
+            Event::on(
+                Element::class,
+                Element::EVENT_DEFINE_SIDEBAR_HTML,
+                function (DefineHtmlEvent $event) {
+                    $element = $event->sender;
+
+                    if (in_array(get_class($element), [Entry::class, Asset::class, 'craft\commerce\elements\Product'])) {
+                        $event->html .= $this->addSitecopyWidgetToElements($event->sender);
+                    }
+                }
+            );
+
             Craft::$app->view->hook(
                 'cp.globals.edit.content',
                 function (array &$context) {
                     /** @var $element GlobalSet */
                     $element = $context['globalSet'];
 
-                    return $this->editDetailsHookGlobals($element);
-                }
-            );
-
-            Craft::$app->view->hook(
-                'cp.assets.edit.meta',
-                function (array &$context) {
-                    /** @var $element Asset */
-                    $element = $context['element'];
-
-                    return $this->editDetailsHookAssets($element);
-                }
-            );
-
-            Craft::$app->view->hook(
-                'cp.entries.edit.details',
-                function (array &$context) {
-                    /** @var $element craft\elements\Entry */
-                    $element = $context['entry'];
-
-                    return $this->editDetailsHookEntries($element);
-                }
-            );
-
-            Craft::$app->view->hook(
-                'cp.commerce.product.edit.details',
-                function (array &$context) {
-                    /** @var $element craft\commerce\elements\Product */
-                    $element = $context['product'];
-
-                    return $this->editDetailsHookEntries($element);
+                    return $this->addSitecopyWidgetToGlobals($element);
                 }
             );
 
@@ -124,20 +107,14 @@ class SiteCopy extends Plugin
     }
 
     /**
-     * @param Entry|craft\commerce\elements\Product|object $element
-     * @param string                                       $template
      * @return string|void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      * @throws \yii\base\Exception
      */
-    private function editDetailsHook($element, string $template)
+    private function addSitecopyWidget(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element, string $template)
     {
-        if (!is_object($element)) {
-            throw new Exception('Given value must be an object!');
-        }
-
         $isNew = $element->id === null;
         $sites = $element->getSupportedSites();
 
@@ -164,19 +141,13 @@ class SiteCopy extends Plugin
         );
     }
 
-    private function editDetailsHookEntries($element)
+    private function addSitecopyWidgetToElements($element)
     {
-        return $this->editDetailsHook($element, 'sitecopy/_cp/entriesEditRightPane');
+        return $this->addSitecopyWidget($element, 'sitecopy/_cp/elementsEdit');
     }
 
-    private function editDetailsHookGlobals($element)
+    private function addSitecopyWidgetToGlobals($element)
     {
-        //todo own scas config
-        return $this->editDetailsHook($element, 'sitecopy/_cp/globalsEdit');
-    }
-
-    private function editDetailsHookAssets($element)
-    {
-        return $this->editDetailsHook($element, 'sitecopy/_cp/entriesEditRightPane');
+        return $this->addSitecopyWidget($element, 'sitecopy/_cp/globalsEdit');
     }
 }
