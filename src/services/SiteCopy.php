@@ -140,10 +140,17 @@ class SiteCopy extends Component
                 }
 
                 if ($site instanceof Site && !in_array($site->id, $exclude)) {
-                    $site = [
-                        'label' => $site->name,
-                        'value' => $site->id,
-                    ];
+                    $user = Craft::$app->getUser()->getIdentity();
+
+                    if ($user->can('editsite:'.$site->uid)) {
+                        $site = [
+                            'label' => $site->name,
+                            'value' => $site->id,
+                        ];
+                    }else {
+                        $site = null;
+                    }
+
                 } else {
                     $site = null;
                 }
@@ -241,12 +248,20 @@ class SiteCopy extends Component
         }
 
         $matchingSites = [];
+        $user = Craft::$app->getUser()->getIdentity();
 
         foreach ($supportedSites as $supportedSite) {
             $siteId = $supportedSite;  // For Products as no siteId key exists
 
             if (is_array($siteId) && isset($siteId['siteId'])) {
                 $siteId = $siteId['siteId'];
+            }
+
+            $site = Craft::$app->getSites()->getSiteById($siteId);
+
+            // permissions are already handled in getSiteInputOptions(), but this is the BE validation
+            if (!$site || !$user->can('editsite:'.$site->uid)) {
+                continue;
             }
 
             $siteElement = Craft::$app->elements->getElementById(
@@ -307,6 +322,8 @@ class SiteCopy extends Component
         $selectedSites = [];
 
         $settings = $this->getCombinedSettings($element);
+        $targetSites = [];
+        $user = Craft::$app->getUser()->getIdentity();
 
         foreach ($settings['settings'] as $setting) {
             $criteriaField = $setting[0] ?? null;
@@ -339,11 +356,23 @@ class SiteCopy extends Component
                 }
 
                 if ($check && (int)$targetId !== $element->siteId) {
-                    $siteCopyEnabled = true;
-                    $selectedSites[] = (int)$targetId;
+                    if (isset($targetSites[$targetId])) {
+                        $targetSite = $targetSites[$targetId];
+                    }else {
+                        $targetSite = Craft::$app->getSites()->getSiteById($targetId);
 
-                    if ($settings['method'] == 'xor') {
-                        break;
+                        if ($targetSite) {
+                            $targetSites[$targetId] = $targetSite;
+                        }
+                    }
+
+                    if ($targetSite && $user->can('editsite:'.$targetSite->uid)) {
+                        $siteCopyEnabled = true;
+                        $selectedSites[] = (int)$targetId;
+
+                        if ($settings['method'] == 'xor') {
+                            break;
+                        }
                     }
                 } elseif ($settings['method'] == 'and' && (int)$targetId !== $element->siteId) {
                     // check failed, revert values to default

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+### Added
+- Support for craft 4!
+
+### Changed
+- The user can now only copy to sites he is allowed to edit (previously he could copy to **any** site, regardless of permissions)
+
 ## 0.8.0 - 2022-07-22
 ### Fixed
 - Fixed an issue where the content of nested blocks with the propagation method "all" would be copied to too many sites ([#33](https://github.com/Goldinteractive/craft3-sitecopy/issues/33))

@@ -2,30 +2,32 @@
 
 {% do view.registerAssetBundle("goldinteractive\\sitecopy\\assetbundles\\sitecopy\\SitecopyAsset") %}
 
-<div id="sitecopy" class="meta pane">
-    {{ forms.lightswitchField({
-        label: 'Copy to site'|t('sitecopy'),
-        id: 'siteCopy-toggle',
-        name: 'sitecopy[enabled]',
-        on: siteCopyEnabled,
-        toggle: '#sitecopy-options',
-    }) }}
+{% set siteCopyTargetOptions = craft.sitecopy.getSiteInputOptions(supportedSites, [siteId]) %}
 
-    {% set siteCopyTargetOptions = craft.sitecopy.getSiteInputOptions(supportedSites, [siteId]) %}
+{% if siteCopyTargetOptions is not empty %}
+    <div id="sitecopy" class="meta pane">
+        {{ forms.lightswitchField({
+            label: 'Copy to site'|t('sitecopy'),
+            id: 'siteCopy-toggle',
+            name: 'sitecopy[enabled]',
+            on: siteCopyEnabled ,
+            toggle: '#sitecopy-options',
+        }) }}
 
-    <div class="{{ siteCopyEnabled ? '' : 'hidden' }}" id="sitecopy-options">
-        {# Intentionally passing non-empty array to uncheck "all" #}
-        {{ forms.checkboxGroupField({
-            label: "To which site should it be copied?"|t('sitecopy'),
-            id: 'siteCopy-targets',
-            name: 'sitecopy[targets]',
-            options: siteCopyTargetOptions,
-            values: selectedSites ?? [],
-        }) }}
-        {{ forms.hidden({
-            id: 'siteCopy-sourceSite',
-            name: 'sitecopy[sourceSite]',
-            value: currentSite ?? null,
-        }) }}
+        <div class="{{ siteCopyEnabled ? '' : 'hidden' }}" id="sitecopy-options">
+            {# Intentionally passing non-empty array to uncheck "all" #}
+            {{ forms.checkboxGroupField({
+                label: "To which site should it be copied?"|t('sitecopy'),
+                id: 'siteCopy-targets',
+                name: 'sitecopy[targets]',
+                options: siteCopyTargetOptions,
+                values: selectedSites ?? [],
+            }) }}
+            {{ forms.hidden({
+                id: 'siteCopy-sourceSite',
+                name: 'sitecopy[sourceSite]',
+                value: currentSite ?? null,
+            }) }}
+        </div>
     </div>
-</div>
+{% endif %}
