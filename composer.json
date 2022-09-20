@@ -15,7 +15,7 @@
   },
   "extra": {
     "handle": "sitecopy",
-    "name": "Gold SiteCopy",
+    "name": "Site Copy",
     "developer": "Gold Interactive",
     "developerUrl": "http://goldinteractive.ch",
     "class": "goldinteractive\\sitecopy\\SiteCopy",
