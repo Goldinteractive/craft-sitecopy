@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 - 2022-09-21
+
+### Changed
+- Changed the plugin handle to separate it from the craft 3 plugin
+
 ## 1.0.0 - 2022-09-20
 ### Added
 - Support for craft 4!

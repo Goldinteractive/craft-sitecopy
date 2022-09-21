@@ -1,7 +1,7 @@
 {
   "name": "goldinteractive/craft-sitecopy",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "type": "craft-plugin",
   "minimum-stability": "dev",
@@ -14,7 +14,7 @@
     }
   },
   "extra": {
-    "handle": "sitecopy",
+    "handle": "site-copy",
     "name": "Site Copy",
     "developer": "Gold Interactive",
     "developerUrl": "http://goldinteractive.ch",
