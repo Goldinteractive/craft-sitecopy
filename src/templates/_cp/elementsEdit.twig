@@ -7,7 +7,7 @@
 {% if siteCopyTargetOptions is not empty %}
     <div id="sitecopy" class="meta pane">
         {{ forms.lightswitchField({
-            label: 'Copy to site'|t('sitecopy'),
+            label: 'Copy to site'|t('site-copy'),
             id: 'siteCopy-toggle',
             name: 'sitecopy[enabled]',
             on: siteCopyEnabled ,
@@ -17,7 +17,7 @@
         <div class="{{ siteCopyEnabled ? '' : 'hidden' }}" id="sitecopy-options">
             {# Intentionally passing non-empty array to uncheck "all" #}
             {{ forms.checkboxGroupField({
-                label: "To which site should it be copied?"|t('sitecopy'),
+                label: "To which site should it be copied?"|t('site-copy'),
                 id: 'siteCopy-targets',
                 name: 'sitecopy[targets]',
                 options: siteCopyTargetOptions,

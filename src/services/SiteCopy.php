@@ -45,19 +45,19 @@ class SiteCopy extends Component
         return [
             [
                 'value' => 'id',
-                'label' => Craft::t('sitecopy', 'Entry id'),
+                'label' => Craft::t('site-copy', 'Entry id'),
             ],
             [
                 'value' => 'type',
-                'label' => Craft::t('sitecopy', 'Entry type (handle)'),
+                'label' => Craft::t('site-copy', 'Entry type (handle)'),
             ],
             [
                 'value' => 'section',
-                'label' => Craft::t('sitecopy', 'Section (handle)'),
+                'label' => Craft::t('site-copy', 'Section (handle)'),
             ],
             [
                 'value' => 'site',
-                'label' => Craft::t('sitecopy', 'Site (handle)'),
+                'label' => Craft::t('site-copy', 'Site (handle)'),
             ],
         ];
     }
@@ -67,15 +67,15 @@ class SiteCopy extends Component
         return [
             [
                 'value' => 'id',
-                'label' => Craft::t('sitecopy', 'Global set id'),
+                'label' => Craft::t('site-copy', 'Global set id'),
             ],
             [
                 'value' => 'handle',
-                'label' => Craft::t('sitecopy', 'Global set handle'),
+                'label' => Craft::t('site-copy', 'Global set handle'),
             ],
             [
                 'value' => 'site',
-                'label' => Craft::t('sitecopy', 'Site (handle)'),
+                'label' => Craft::t('site-copy', 'Site (handle)'),
             ],
         ];
     }
@@ -85,15 +85,15 @@ class SiteCopy extends Component
         return [
             [
                 'value' => 'id',
-                'label' => Craft::t('sitecopy', 'Asset id'),
+                'label' => Craft::t('site-copy', 'Asset id'),
             ],
             [
                 'value' => 'volume',
-                'label' => Craft::t('sitecopy', 'Volume (handle)'),
+                'label' => Craft::t('site-copy', 'Volume (handle)'),
             ],
             [
                 'value' => 'site',
-                'label' => Craft::t('sitecopy', 'Site (handle)'),
+                'label' => Craft::t('site-copy', 'Site (handle)'),
             ],
         ];
     }
@@ -103,11 +103,11 @@ class SiteCopy extends Component
         return [
             [
                 'value' => 'eq',
-                'label' => Craft::t('sitecopy', 'Equals'),
+                'label' => Craft::t('site-copy', 'Equals'),
             ],
             [
                 'value' => 'neq',
-                'label' => Craft::t('sitecopy', 'Does not equal'),
+                'label' => Craft::t('site-copy', 'Does not equal'),
             ],
         ];
     }
@@ -173,15 +173,15 @@ class SiteCopy extends Component
         return [
             [
                 'value' => 'fields',
-                'label' => Craft::t('sitecopy', 'Fields (Content)'),
+                'label' => Craft::t('site-copy', 'Fields (Content)'),
             ],
             [
                 'value' => 'title',
-                'label' => Craft::t('sitecopy', 'Title'),
+                'label' => Craft::t('site-copy', 'Title'),
             ],
             [
                 'value' => 'slug',
-                'label' => Craft::t('sitecopy', 'Slug'),
+                'label' => Craft::t('site-copy', 'Slug'),
             ],
         ];
     }
