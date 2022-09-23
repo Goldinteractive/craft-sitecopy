@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 - 2022-09-23
+
+### Fixed
+- Fixed bugs caused by the changing of the plugin handle
+
 ## 1.0.1 - 2022-09-21
 
 ### Changed
