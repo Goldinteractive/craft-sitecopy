@@ -104,7 +104,7 @@ class SiteCopy extends Plugin
      */
     protected function settingsHtml(): ?string
     {
-        return Craft::$app->getView()->renderTemplate('sitecopy/_cp/settings', [
+        return Craft::$app->getView()->renderTemplate('site-copy/_cp/settings', [
             'settings'                    => $this->getSettings(),
             'criteriaFieldOptionsEntries' => services\SiteCopy::getCriteriaFieldsEntries(),
             'criteriaFieldOptionsGlobals' => services\SiteCopy::getCriteriaFieldsGlobals(),
@@ -137,7 +137,7 @@ class SiteCopy extends Plugin
         $currentSite = $element->siteId ?? null;
 
         return Craft::$app->view->renderTemplate(
-            'sitecopy/_cp/elementsEdit',
+            'site-copy/_cp/elementsEdit',
             [
                 'siteId'          => $element->siteId,
                 'supportedSites'  => $sites,
