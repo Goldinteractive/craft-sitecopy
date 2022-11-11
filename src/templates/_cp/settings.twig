@@ -3,18 +3,18 @@
 {% set attributesToCopyOptions = craft.sitecopy.getAttributesToCopyOptions() %}
 
 {{ forms.checkboxGroupField({
-  label: "Fields to copy"|t('site-copy'),
+  label: "Fields to copy"|t('site-copy-x'),
   id: 'attributesToCopy',
   name: 'attributesToCopy',
   options: attributesToCopyOptions,
   values: settings.attributesToCopy is not empty ? settings.attributesToCopy : [],
 }) }}
 
-<h2 class="first">{{ 'Entries'|t('site-copy') }}</h2>
+<h2 class="first">{{ 'Entries'|t('site-copy-x') }}</h2>
 
 {# combined settings #}
 
-{% set sourceOptions = [{value: '*', label: 'All Sites'|t('site-copy')}] %}
+{% set sourceOptions = [{value: '*', label: 'All Sites'|t('site-copy-x')}] %}
 
 {% for site in craft.app.sites.getAllSites() %}
     {% set sourceOptions = sourceOptions|merge([{value: site.id, label: site.name}]) %}
@@ -25,7 +25,7 @@
 {% set cols = [
     {
         type: 'select',
-        heading: 'Criteria'|t('site-copy'),
+        heading: 'Criteria'|t('site-copy-x'),
         options: criteriaFieldOptionsEntries,
     },
     {
@@ -34,39 +34,39 @@
     },
     {
         type: 'text',
-        heading: 'Value'|t('site-copy'),
+        heading: 'Value'|t('site-copy-x'),
     },
     {
         type: 'select',
-        heading: 'Source site'|t('site-copy'),
+        heading: 'Source site'|t('site-copy-x'),
         options: sourceOptions,
     },
     {
         type: 'select',
-        heading: 'Target site'|t('site-copy'),
+        heading: 'Target site'|t('site-copy-x'),
         options: targetOptions,
     }
 ] %}
 
 {{ forms.editableTableField({
-    label: 'Automatic copy (optional)'|t('site-copy'),
-    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('site-copy'),
+    label: 'Automatic copy (optional)'|t('site-copy-x'),
+    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('site-copy-x'),
     name: 'combinedSettingsEntries',
     id: 'combinedSettingsEntries',
     cols: cols,
     rows: settings.combinedSettingsEntries,
-    addRowLabel: 'Add a criteria'|t('site-copy'),
+    addRowLabel: 'Add a criteria'|t('site-copy-x'),
     allowAdd: true,
     allowReorder: true,
     allowDelete: true,
 }) }}
 
-<h2>{{ 'Globals'|t('site-copy') }}</h2>
+<h2>{{ 'Globals'|t('site-copy-x') }}</h2>
 
 {% set cols = [
     {
         type: 'select',
-        heading: 'Criteria'|t('site-copy'),
+        heading: 'Criteria'|t('site-copy-x'),
         options: criteriaFieldOptionsGlobals,
     },
     {
@@ -75,39 +75,39 @@
     },
     {
         type: 'text',
-        heading: 'Value'|t('site-copy'),
+        heading: 'Value'|t('site-copy-x'),
     },
     {
         type: 'select',
-        heading: 'Source site'|t('site-copy'),
+        heading: 'Source site'|t('site-copy-x'),
         options: sourceOptions,
     },
     {
         type: 'select',
-        heading: 'Target site'|t('site-copy'),
+        heading: 'Target site'|t('site-copy-x'),
         options: targetOptions,
     }
 ] %}
 
 {{ forms.editableTableField({
-    label: 'Automatic copy (optional)'|t('site-copy'),
-    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('site-copy'),
+    label: 'Automatic copy (optional)'|t('site-copy-x'),
+    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('site-copy-x'),
     name: 'combinedSettingsGlobals',
     id: 'combinedSettingsGlobals',
     cols: cols,
     rows: settings.combinedSettingsGlobals,
-    addRowLabel: 'Add a criteria'|t('site-copy'),
+    addRowLabel: 'Add a criteria'|t('site-copy-x'),
     allowAdd: true,
     allowReorder: true,
     allowDelete: true,
 }) }}
 
-<h2>{{ 'Assets'|t('site-copy') }}</h2>
+<h2>{{ 'Assets'|t('site-copy-x') }}</h2>
 
 {% set cols = [
     {
         type: 'select',
-        heading: 'Criteria'|t('site-copy'),
+        heading: 'Criteria'|t('site-copy-x'),
         options: criteriaFieldOptionsAssets,
     },
     {
@@ -116,38 +116,38 @@
     },
     {
         type: 'text',
-        heading: 'Value'|t('site-copy'),
+        heading: 'Value'|t('site-copy-x'),
     },
     {
         type: 'select',
-        heading: 'Source site'|t('site-copy'),
+        heading: 'Source site'|t('site-copy-x'),
         options: sourceOptions,
     },
     {
         type: 'select',
-        heading: 'Target site'|t('site-copy'),
+        heading: 'Target site'|t('site-copy-x'),
         options: targetOptions,
     }
 ] %}
 
 {{ forms.editableTableField({
-    label: 'Automatic copy (optional)'|t('site-copy'),
-    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('site-copy'),
+    label: 'Automatic copy (optional)'|t('site-copy-x'),
+    instructions: 'Criterias for cases where the contents should be automatically copied from site x to site y.'|t('site-copy-x'),
     name: 'combinedSettingsAssets',
     id: 'combinedSettingsAssets',
     cols: cols,
     rows: settings.combinedSettingsAssets,
-    addRowLabel: 'Add a criteria'|t('site-copy'),
+    addRowLabel: 'Add a criteria'|t('site-copy-x'),
     allowAdd: true,
     allowReorder: true,
     allowDelete: true,
 }) }}
 
-<h2>{{ 'Settings'|t('site-copy') }}</h2>
+<h2>{{ 'Settings'|t('site-copy-x') }}</h2>
 
 {{ forms.selectField({
-    label: 'Criteria check method'|t('site-copy'),
-    instructions: 'Decide if the criteria are mutually exclusive (OR), everything needs to be true (AND) or if it should break after the first matching statement (XOR).'|t('site-copy'),
+    label: 'Criteria check method'|t('site-copy-x'),
+    instructions: 'Decide if the criteria are mutually exclusive (OR), everything needs to be true (AND) or if it should break after the first matching statement (XOR).'|t('site-copy-x'),
     id: 'combinedSettingsCheckMethod',
     name: 'combinedSettingsCheckMethod',
     options: [{value: 'or', label: 'OR',}, {value: 'and', label: 'AND'}, {value: 'xor', label: 'XOR'}, ],

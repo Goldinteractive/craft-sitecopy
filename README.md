@@ -1,4 +1,4 @@
-# SiteCopy for Craft CMS 4
+# Site Copy X for Craft CMS 4
 
 This plugin makes it easy to copy the content of an entry from a site to another.
 
@@ -9,7 +9,7 @@ This plugin makes it easy to copy the content of an entry from a site to another
 - Assets
 - Craft commerce products
 
-## Using the SiteCopy plugin
+## Using the Site Copy X plugin
 
 ### Copy entry to another site
 

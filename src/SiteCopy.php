@@ -23,7 +23,7 @@ use yii\base\Event;
 
 /**
  * @author    Gold Interactive
- * @package   Gold SiteCopy
+ * @package   Site Copy X
  * @since     0.2.0
  *
  */
@@ -104,7 +104,7 @@ class SiteCopy extends Plugin
      */
     protected function settingsHtml(): ?string
     {
-        return Craft::$app->getView()->renderTemplate('site-copy/_cp/settings', [
+        return Craft::$app->getView()->renderTemplate('site-copy-x/_cp/settings', [
             'settings'                    => $this->getSettings(),
             'criteriaFieldOptionsEntries' => services\SiteCopy::getCriteriaFieldsEntries(),
             'criteriaFieldOptionsGlobals' => services\SiteCopy::getCriteriaFieldsGlobals(),
@@ -137,7 +137,7 @@ class SiteCopy extends Plugin
         $currentSite = $element->siteId ?? null;
 
         return Craft::$app->view->renderTemplate(
-            'site-copy/_cp/elementsEdit',
+            'site-copy-x/_cp/elementsEdit',
             [
                 'siteId'          => $element->siteId,
                 'supportedSites'  => $sites,
