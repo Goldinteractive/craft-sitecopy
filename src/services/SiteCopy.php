@@ -11,6 +11,7 @@ use craft\base\Component;
 use craft\base\Element;
 use craft\base\Model;
 use craft\elements\Asset;
+use craft\elements\Category;
 use craft\elements\db\ElementQuery;
 use craft\elements\Entry;
 use craft\elements\GlobalSet;
@@ -199,7 +200,7 @@ class SiteCopy extends Component
         $entry = $event->element;
         $isDraftOrRevision = ElementHelper::isDraftOrRevision($entry);
 
-        if ((!$entry instanceof Entry && !$entry instanceof craft\commerce\elements\Product && !$entry instanceof GlobalSet && !$entry instanceof Asset) || $isDraftOrRevision) {
+        if ((!$entry instanceof Entry && !$entry instanceof craft\commerce\elements\Product && !$entry instanceof GlobalSet && !$entry instanceof Asset && !$entry instanceof Category) || $isDraftOrRevision) {
             return;
         }
 
@@ -287,7 +288,7 @@ class SiteCopy extends Component
         }
     }
 
-    public function getSerializedFieldValues(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
+    public function getSerializedFieldValues(Entry|craft\commerce\elements\Product|Asset|GlobalSet|Category $element)
     {
         $fields = $element->getFieldLayout()->getCustomFields();
         $serializedValues = [];
@@ -312,7 +313,7 @@ class SiteCopy extends Component
      * @return array
      * @throws Exception
      */
-    public function handleSiteCopyActiveState(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
+    public function handleSiteCopyActiveState(Entry|craft\commerce\elements\Product|Asset|GlobalSet|Category $element)
     {
         if (!is_object($element)) {
             throw new Exception('Given value must be an object!');
@@ -405,7 +406,7 @@ class SiteCopy extends Component
     /**
      * @return array
      */
-    public function getCombinedSettings(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
+    public function getCombinedSettings(Entry|craft\commerce\elements\Product|Asset|GlobalSet|Category $element)
     {
         $combinedSettings = [];
 

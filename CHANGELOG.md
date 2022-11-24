@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 - 2022-11-24
+
+### Added
+- Site Copy now works with categories too!
+
 ## 1.0.3 - 2022-11-11
 
 ### Changed

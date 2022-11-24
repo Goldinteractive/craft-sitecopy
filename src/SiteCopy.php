@@ -11,6 +11,7 @@ use craft\base\Plugin;
 
 use Craft;
 use craft\elements\Asset;
+use craft\elements\Category;
 use craft\elements\Entry;
 use craft\elements\GlobalSet;
 use craft\events\DefineHtmlEvent;
@@ -58,7 +59,7 @@ class SiteCopy extends Plugin
                 function (DefineHtmlEvent $event) {
                     $element = $event->sender;
 
-                    if (in_array(get_class($element), [Entry::class, Asset::class, 'craft\commerce\elements\Product'])) {
+                    if (in_array(get_class($element), [Entry::class, Asset::class, 'craft\commerce\elements\Product', Category::class])) {
                         $event->html .= $this->addSitecopyWidget($event->sender);
                     }
                 }
@@ -120,7 +121,7 @@ class SiteCopy extends Plugin
      * @throws \Twig\Error\SyntaxError
      * @throws \yii\base\Exception
      */
-    private function addSitecopyWidget(Entry|craft\commerce\elements\Product|Asset|GlobalSet $element)
+    private function addSitecopyWidget(Entry|craft\commerce\elements\Product|Asset|GlobalSet|Category $element)
     {
         $isNew = $element->id === null;
         $sites = $element->getSupportedSites();
