@@ -7,6 +7,7 @@ This plugin makes it easy to copy the content of an entry from a site to another
 - Entries
 - Global sets
 - Assets
+- Categories
 - Craft commerce products
 
 ## Using the Site Copy X plugin
