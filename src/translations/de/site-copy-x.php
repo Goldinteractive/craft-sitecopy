@@ -12,10 +12,11 @@ return [
     'Globals'  => 'Globale Inhalte',
     'Settings' => 'Einstellungen',
 
-    'Fields to copy'   => 'Felder zum Kopieren',
-    'Fields (Content)' => 'Felder (Inhalt)',
-    'Title'            => 'Titel',
-    'Slug'             => 'Slug',
+    'Fields to copy'    => 'Felder zum Kopieren',
+    'Fields (Content)'  => 'Felder (Inhalt)',
+    'Title'             => 'Titel',
+    'Slug'              => 'Slug',
+    'Commerce Variants' => 'Commerce Varianten',
 
     'Entry id'            => 'Eintrags Id',
     'Section (handle)'    => 'Sektion (handle)',

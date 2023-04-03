@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5 - 2023-04-03
+
+### Added
+- Added the ability to copy commerce variant fields
+
 ## 1.0.4 - 2022-11-24
 
 ### Added

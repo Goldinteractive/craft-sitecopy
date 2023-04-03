@@ -70,7 +70,19 @@ class SyncElementContent extends BaseJob
                 if (empty($tmp)) {
                     continue;
                 }
-            }else {
+            } elseif ($attribute == 'variants') {
+                if (!$sourceElement instanceof craft\commerce\elements\Product || !$sourceElement->getType()->hasVariants) {
+                    continue;
+                }
+
+                $variantFields = [];
+
+                foreach ($sourceElement->getVariants() as $variant) {
+                    $variantFields[$variant->id] = $variant->getFieldValues();
+                }
+
+                $tmp = $variantFields;
+            } else {
                 $tmp = $sourceElement->{$attribute};
             }
 
@@ -92,11 +104,21 @@ class SyncElementContent extends BaseJob
             foreach ($data as $key => $item) {
                 if ($key == 'fields') {
                     $siteElement->setFieldValues($item);
-                    continue;
-                }
+                } elseif ($key == 'variants') {
+                    foreach ($item as $variantId => $value) {
+                        $variant = craft\commerce\elements\Variant::find()->id($variantId)->siteId($siteId)->one();
 
-                // this is not possible for custom fields as of craft 3.4.0, make sure they dont reach this
-                $siteElement->{$key} = $item;
+                        if ($variant) {
+                            $variant->setFieldValues($value);
+
+                            $variant->setScenario(Element::SCENARIO_ESSENTIALS);
+                            Craft::$app->getElements()->saveElement($variant);
+                        }
+                    }
+                } else {
+                    // this is not possible for custom fields as of craft 3.4.0, make sure they dont reach this
+                    $siteElement->{$key} = $item;
+                }
             }
 
             $siteElement->setScenario(Element::SCENARIO_ESSENTIALS);
