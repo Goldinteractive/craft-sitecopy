@@ -21,7 +21,9 @@ class SitecopyAsset extends AssetBundle
             CpAsset::class,
         ];
 
-        $this->js = [];
+        $this->js = [
+            'js/sitecopy.js',
+        ];
 
         $this->css = [
             'css/sitecopy.css',

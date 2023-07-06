@@ -15,7 +15,6 @@
         }) }}
 
         <div class="{{ siteCopyEnabled ? '' : 'hidden' }}" id="sitecopy-options">
-            {# Intentionally passing non-empty array to uncheck "all" #}
             {{ forms.checkboxGroupField({
                 label: "To which site should it be copied?"|t('site-copy-x'),
                 id: 'siteCopy-targets',

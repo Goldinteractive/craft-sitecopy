@@ -143,12 +143,13 @@ class SiteCopy extends Component
                 if ($site instanceof Site && !in_array($site->id, $exclude)) {
                     $user = Craft::$app->getUser()->getIdentity();
 
-                    if ($user->can('editsite:'.$site->uid)) {
+                    if ($user->can('editsite:' . $site->uid)) {
                         $site = [
                             'label' => $site->name,
                             'value' => $site->id,
+                            'inputAttributes' => ['onclick' => 'updateSitecopyToggleAll(this)'],
                         ];
-                    }else {
+                    } else {
                         $site = null;
                     }
 
@@ -161,7 +162,18 @@ class SiteCopy extends Component
             $sites
         );
 
-        return array_filter($sites);
+        $sites = array_filter($sites);
+
+        if (count($sites) > 1) {
+            array_unshift($sites, [
+                'id' => 'sitecopy-toggle-all',
+                'label' => Craft::t('site-copy-x', 'Select all'),
+                'value' => '',
+                'inputAttributes' => ['onclick' => 'toggleSitecopyTargets(this)'],
+            ]);
+        }
+
+        return $sites;
     }
 
     /**
@@ -265,7 +277,7 @@ class SiteCopy extends Component
             $site = Craft::$app->getSites()->getSiteById($siteId);
 
             // permissions are already handled in getSiteInputOptions(), but this is the BE validation
-            if (!$site || !$user->can('editsite:'.$site->uid)) {
+            if (!$site || !$user->can('editsite:' . $site->uid)) {
                 continue;
             }
 
@@ -346,7 +358,7 @@ class SiteCopy extends Component
 
                 if ($criteriaField === 'id') {
                     $checkFrom = $element->canonicalId;
-                }elseif ($criteriaField === 'handle') {
+                } elseif ($criteriaField === 'handle') {
                     $checkFrom = $element->{$criteriaField};
                 } elseif (isset($element[$criteriaField]['handle'])) {
                     $checkFrom = $element[$criteriaField]['handle'];
@@ -363,7 +375,7 @@ class SiteCopy extends Component
                 if ($check && (int)$targetId !== $element->siteId) {
                     if (isset($targetSites[$targetId])) {
                         $targetSite = $targetSites[$targetId];
-                    }else {
+                    } else {
                         $targetSite = Craft::$app->getSites()->getSiteById($targetId);
 
                         if ($targetSite) {
@@ -371,7 +383,7 @@ class SiteCopy extends Component
                         }
                     }
 
-                    if ($targetSite && $user->can('editsite:'.$targetSite->uid)) {
+                    if ($targetSite && $user->can('editsite:' . $targetSite->uid)) {
                         $siteCopyEnabled = true;
                         $selectedSites[] = (int)$targetId;
 

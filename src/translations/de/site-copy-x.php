@@ -40,4 +40,5 @@ return [
     'Asset id'                                                                                                                                              => 'Datei Id',
     'Assets'                                                                                                                                                => 'Dateien',
     'Volume (handle)'                                                                                                                                       => 'Volumen (handle)',
+    'Select all'                                                                                                                                            => 'Alle auswählen'
 ];
