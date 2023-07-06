@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.6 - 2023-07-06
+
+### Added
+- Added a new "select all" checkbox
+
 ## 1.0.5 - 2023-04-03
 
 ### Added
