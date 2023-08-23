@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7 - 2023-08-23
+
+### Fixed
+- Fixed an issue with craft 4.5.0 matrix field values not being copied
+
 ## 1.0.6 - 2023-07-06
 
 ### Added

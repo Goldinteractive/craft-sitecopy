@@ -309,14 +309,22 @@ class SiteCopy extends Component
         $fields = $element->getFieldLayout()->getCustomFields();
         $serializedValues = [];
 
-        // fix for https://github.com/spicywebau/craft-neo/issues/391
-        // child elements of a disabled neo blocks will still be in the serialized response, but their parent not
-        // solution: copy all disabled blocks too
         foreach ($fields as $field) {
             $value = $element->getFieldValue($field->handle);
 
             if ($value instanceof ElementQuery) {
-                $serializedValues[$field->handle] = $field->serializeValue($value->status([Element::STATUS_ENABLED, Element::STATUS_DISABLED]), $element);
+                $tmp = $field->serializeValue($value->status([Element::STATUS_ENABLED, Element::STATUS_DISABLED]), $element);
+
+                // matrix fields are lazy loaded since 4.5.0 and return a closure instead of an array
+                if (is_array($tmp)) {
+                    foreach ($tmp as &$item) {
+                        if (isset($item['fields']) && is_callable($item['fields'])) {
+                            $item['fields'] = $item['fields']();
+                        }
+                    }
+                }
+
+                $serializedValues[$field->handle] = $tmp;
             } else {
                 $serializedValues[$field->handle] = $field->serializeValue($value, $element);
             }
