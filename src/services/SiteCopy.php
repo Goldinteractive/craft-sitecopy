@@ -313,18 +313,7 @@ class SiteCopy extends Component
             $value = $element->getFieldValue($field->handle);
 
             if ($value instanceof ElementQuery) {
-                $tmp = $field->serializeValue($value->status([Element::STATUS_ENABLED, Element::STATUS_DISABLED]), $element);
-
-                // matrix fields are lazy loaded since 4.5.0 and return a closure instead of an array
-                if (is_array($tmp)) {
-                    foreach ($tmp as &$item) {
-                        if (isset($item['fields']) && is_callable($item['fields'])) {
-                            $item['fields'] = $item['fields']();
-                        }
-                    }
-                }
-
-                $serializedValues[$field->handle] = $tmp;
+                $serializedValues[$field->handle] = $field->serializeValue($value->status([Element::STATUS_ENABLED, Element::STATUS_DISABLED]), $element);
             } else {
                 $serializedValues[$field->handle] = $field->serializeValue($value, $element);
             }

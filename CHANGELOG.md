@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.8 - 2023-09-11
+
+### Changed
+
+- Rolled back the changes from version 1.0.7 as the related issue got fixed in craft 4.5.1
+
 ## 1.0.7 - 2023-08-23
 
 ### Fixed
