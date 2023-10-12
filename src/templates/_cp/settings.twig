@@ -153,3 +153,12 @@
     options: [{value: 'or', label: 'OR',}, {value: 'and', label: 'AND'}, {value: 'xor', label: 'XOR'}, ],
     value: settings.combinedSettingsCheckMethod is not empty ? settings.combinedSettingsCheckMethod : null,
 }) }}
+
+{{ forms.textField({
+    label: 'Queue Job Priority'|t('site-copy-x'),
+    instructions: 'Decide the priority for the queue job handling the Site Copy. Jobs with a lower priority are executed first. Default is 1024'|t('site-copy-x'),
+    id: 'combinedSettingsQueuePriority',
+    name: 'combinedSettingsQueuePriority',
+    value: settings.combinedSettingsQueuePriority is not empty ? settings.combinedSettingsQueuePriority : 1024,
+    errors: settings.getErrors('combinedSettingsQueuePriority')
+}) }}

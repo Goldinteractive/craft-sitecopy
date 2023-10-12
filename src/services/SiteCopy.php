@@ -294,8 +294,11 @@ class SiteCopy extends Component
             }
         }
 
+        // Get queue priority
+        $priority = (int)$this->settings->combinedSettingsQueuePriority;
+
         if (!empty($matchingSites)) {
-            Craft::$app->getQueue()->push(new SyncElementContent([
+            Craft::$app->getQueue()->priority($priority)->push(new SyncElementContent([
                 'elementId'        => (int)$entry->id,
                 'sourceSiteId'     => $elementSettings['sourceSite'],
                 'sites'            => $matchingSites,
