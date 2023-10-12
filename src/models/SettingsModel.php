@@ -42,6 +42,8 @@ class SettingsModel extends Model
      */
     public $combinedSettingsCheckMethod = '';
 
+    public $combinedSettingsQueuePriority = 1024;
+
     /**
      * @return array
      */
@@ -53,6 +55,7 @@ class SettingsModel extends Model
             [['combinedSettingsGlobals'], 'checkCombinedSettingsGlobals'],
             [['combinedSettingsAssets'], 'checkCombinedSettingsAssets'],
             [['combinedSettingsCheckMethod'], 'in', 'range' => ['and', 'or', 'xor']],
+            [['combinedSettingsQueuePriority'], 'checkCombinedSettingsQueuePriority']
         ];
     }
 
@@ -104,6 +107,11 @@ class SettingsModel extends Model
         $this->checkCombinedSettings('combinedSettingsAssets', SiteCopy::getCriteriaFieldsAssets());
     }
 
+    public function checkCombinedSettingsQueuePriority()
+    {
+        $this->checkCombinedSettings('combinedSettingsQueuePriority', []);
+    }
+
     public function checkCombinedSettings(string $attribute, array $criteriaFields)
     {
         $operators = SiteCopy::getOperators();
@@ -117,9 +125,13 @@ class SettingsModel extends Model
             }, $operators),
         ];
 
-        if (!is_array($this->{$attribute})) {
+        if ($attribute === 'combinedSettingsQueuePriority') {
+            if (preg_match('/[a-zA-Z]/', $this->{$attribute}) > 0) {
+                $this->addError($attribute, 'must be a number');
+            }
+            return;
+        } elseif (!is_array($this->{$attribute})) {
             $this->addError($attribute, 'invalid array');
-
             return;
         }
 
