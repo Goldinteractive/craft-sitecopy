@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.9 - 2023-10-16
+
+### Added
+
+- Added a new setting option that allows administrators to set a queue priority to the plugin jobs if they desire (thanks @Alxmerino)
+
 ## 1.0.8 - 2023-09-11
 
 ### Changed
