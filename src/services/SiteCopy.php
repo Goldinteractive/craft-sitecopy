@@ -147,6 +147,7 @@ class SiteCopy extends Component
                         $site = [
                             'label' => $site->name,
                             'value' => $site->id,
+                            'groupId' => $site->groupId,
                             'inputAttributes' => ['onclick' => 'updateSitecopyToggleAll(this)'],
                         ];
                     } else {
@@ -164,11 +165,16 @@ class SiteCopy extends Component
 
         $sites = array_filter($sites);
 
+        usort($sites, function ($a, $b) {
+            return $a['groupId'] - $b['groupId'];
+        });
+
         if (count($sites) > 1) {
             array_unshift($sites, [
                 'id' => 'sitecopy-toggle-all',
                 'label' => Craft::t('site-copy-x', 'Select all'),
                 'value' => '',
+                'groupId' => null,
                 'inputAttributes' => ['onclick' => 'toggleSitecopyTargets(this)'],
             ]);
         }

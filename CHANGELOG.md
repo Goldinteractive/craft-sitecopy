@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.10 - 2023-10-19
+
+### Changed
+
+- The list of sites to copy to is now sorted by site group to provide a better ui for multisite setups [#6](https://github.com/Goldinteractive/craft-sitecopy/issues/6)
+
+
 ## 1.0.9 - 2023-10-16
 
 ### Added
