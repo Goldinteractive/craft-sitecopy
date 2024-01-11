@@ -20,6 +20,7 @@ use craft\helpers\ElementHelper;
 use craft\models\Site;
 use Exception;
 use goldinteractive\sitecopy\jobs\SyncElementContent;
+use goldinteractive\sitecopy\models\SettingsModel;
 use Throwable;
 
 /**
@@ -30,7 +31,7 @@ use Throwable;
 class SiteCopy extends Component
 {
     /**
-     * @var Model|null
+     * @var SettingsModel|null
      */
     private $settings = null;
 
