@@ -10,6 +10,7 @@ use Craft;
 use craft\base\Element;
 use craft\queue\BaseJob;
 use goldinteractive\sitecopy\SiteCopy;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Class SyncElementContent
@@ -91,6 +92,7 @@ class SyncElementContent extends BaseJob
 
         $totalSites = count($this->sites);
         $currentSite = 0;
+        $mutex = Craft::$app->getMutex();
 
         foreach ($this->sites as $siteId) {
             $this->setProgress($queue, $currentSite / $totalSites, Craft::t('app', '{step} of {total}', [
@@ -121,8 +123,18 @@ class SyncElementContent extends BaseJob
                 }
             }
 
+            $lockKey = "element:$siteElement->canonicalId";
+            if (!$mutex->acquire($lockKey, 15)) {
+                throw new ServerErrorHttpException('Could not acquire a lock to save the element.');
+            }
+
             $siteElement->setScenario(Element::SCENARIO_ESSENTIALS);
-            $elementsService->saveElement($siteElement);
+
+            try {
+                $elementsService->saveElement($siteElement);
+            } finally {
+                $mutex->release($lockKey);
+            }
 
             $currentSite++;
         }
