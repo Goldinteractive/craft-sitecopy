@@ -49,7 +49,7 @@ to be copied to a specific site.
 
 ## Requirements
 
-This plugin requires Craft CMS 4.0 or later.
+This plugin requires Craft CMS 4.5.11 or later.
 
 ## Installation
 
