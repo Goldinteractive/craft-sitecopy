@@ -17,6 +17,7 @@ use craft\elements\Entry;
 use craft\elements\GlobalSet;
 use craft\events\ElementEvent;
 use craft\helpers\ElementHelper;
+use craft\helpers\Queue;
 use craft\models\Site;
 use Exception;
 use goldinteractive\sitecopy\jobs\SyncElementContent;
@@ -301,16 +302,18 @@ class SiteCopy extends Component
             }
         }
 
-        // Get queue priority
-        $priority = (int)$this->settings->combinedSettingsQueuePriority;
-
         if (!empty($matchingSites)) {
-            Craft::$app->getQueue()->priority($priority)->push(new SyncElementContent([
+            $job = new SyncElementContent([
                 'elementId'        => (int)$entry->id,
                 'sourceSiteId'     => $elementSettings['sourceSite'],
                 'sites'            => $matchingSites,
                 'attributesToCopy' => $attributesToCopy,
-            ]));
+            ]);
+
+            Craft::$app->onAfterRequest(function() use ($job) {
+                $priority = (int)$this->settings->combinedSettingsQueuePriority;
+                Queue::push($job, $priority);
+            });
         }
     }
 
