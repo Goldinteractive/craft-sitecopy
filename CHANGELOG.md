@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 - 2024-01-22
+
+### Changed
+
+- Site Copy X now requires Craft CMS 4.5.11
+
+### Fixed
+- Fixed a database error that could occur when saving an entry while the copy-to-site job is running [#9](https://github.com/Goldinteractive/craft-sitecopy/issues/9)
+
 ## 1.0.10 - 2023-10-19
 
 ### Changed
