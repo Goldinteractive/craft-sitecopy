@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0 - 2024-03-11
+
+### Changed
+
+- Updated dependencies to make the plugin work for Craft CMS 5.0.0-beta-6
+
 ## 1.1.0 - 2024-01-22
 
 ### Changed
